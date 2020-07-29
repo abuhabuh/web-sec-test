@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+
+  client-server:
+    image: cors-client-server
+    build:
+      context: client-server
+      dockerfile: Dockerfile
+    ports:
+      - 5001:5001
+
+  resource-server:
+    image: cors-resource-server
+    build:
+      context: resource-server
+      dockerfile: Dockerfile
+    ports:
+      - 5002:5002
+
+

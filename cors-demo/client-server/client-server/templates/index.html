@@ -1,0 +1,87 @@
+<html>
+
+  <body>
+
+    <h1> hello world </h1>
+    <p>
+      Image triggers POST /name as application/json Content-Type.
+      Preflight request will be sent. If preflight request is 
+      authorized by CORS on server side for POST /name, then 
+      request will be successful.
+    </p>
+    <img 
+      onload="doJsonPost()"
+      src="https://d2ph5fj80uercy.cloudfront.net/06/cat1996.jpg"
+      style="width: 80px; height: 80px"
+    />
+    
+    <br/>
+    <br/>
+
+    <p>
+      Image triggers POST /name with default ContentType.
+      Request may not register as success on client side, but POST
+      command will be executed by the server.
+    </p>
+    <img 
+      onload="doPlainPost()"
+      src="https://d2ph5fj80uercy.cloudfront.net/06/cat1996.jpg"
+      style="width: 80px; height: 80px"
+    />
+
+    <br/>
+    <br/>
+
+    <p>
+      Image triggers GET /name with default ContentType.
+      If CORS not allowed, request will fail. If CORS allowed for 
+      GET /name request will be successful.
+    </p>
+    <img 
+      onload="doGet()"
+      src="https://d2ph5fj80uercy.cloudfront.net/06/cat1996.jpg"
+      style="width: 80px; height: 80px"
+    />
+
+  </body>
+
+
+  <script>
+    console.log('script section');
+
+    function plainPostOnLoad() {
+      console.log('onLoad for plain POST request success: ' + this.responseText);
+    }
+    
+    function jsonPostOnLoad() {
+      console.log('onLoad for json POST request success: ' + this.responseText);
+    }
+
+    function getOnLoad() {
+      console.log('onLoad for GET request success: ' + this.responseText);
+    }
+
+    function doJsonPost() {
+      var oReq = new XMLHttpRequest();
+      oReq.addEventListener("load", jsonPostOnLoad);
+      oReq.open('POST', 'http://localhost:5002/name?new_name=chuckjson'); 
+      oReq.setRequestHeader('Content-Type', 'application/json');
+      oReq.send();
+    }
+
+    function doPlainPost() {
+      var oReq = new XMLHttpRequest();
+      oReq.addEventListener("load", plainPostOnLoad);
+      oReq.open('POST', 'http://localhost:5002/name?new_name=chuckplain'); 
+      oReq.send();
+    }
+
+    function doGet() {
+      var oReq = new XMLHttpRequest();
+      oReq.addEventListener("load", getOnLoad);
+      oReq.open("GET", "http://localhost:5002/name");
+      oReq.send();
+    }
+  </script>
+
+</html>
