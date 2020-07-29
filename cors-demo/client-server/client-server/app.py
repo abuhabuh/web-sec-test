@@ -2,7 +2,7 @@ import os
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
-from apis import bootstrap 
+import bootstrap 
 
 
 jinja_env = Environment(
@@ -14,8 +14,7 @@ jinja_env = Environment(
     ),
     autoescape=select_autoescape(['html', 'xml'])
 )
+
+# `flask run` references this app object
 app = bootstrap.bootstrap_app(jinja_env)
 
-
-if __name__ == '__main__':
-    app.run('0.0.0.0', port=5001)

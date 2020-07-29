@@ -1,12 +1,12 @@
 import flask
 
-from apis import base
+from apis import base_api
 
 
 def bootstrap_app(jinja_env):
     flask_app = flask.Flask(__name__)
     
-    base.add_apis(flask_app, jinja_env)
+    base_api.add_endpoints(flask_app, jinja_env)
 
     return flask_app
 
