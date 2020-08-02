@@ -5,8 +5,7 @@ services:
   client-server:
     image: cors-client-server
     volumes:
-      # mount the client-server app code on the running container overwriting
-      # what is currently there so we can hot reload the app
+      # mount the app code into running container to allow live editing
       - type: bind
         source: ./client-server/client-server
         target: /var/www/server/client-server
@@ -18,9 +17,14 @@ services:
 
   resource-server:
     image: cors-resource-server
+    volumes:
+      # mount the app code into running container to allow live editing
+      - type: bind
+        source: ./resource-server/resource-server
+        target: /var/www/server/resource-server
     build:
       context: resource-server
       dockerfile: Dockerfile
     ports:
-      - 5002:5002
+      - 5002:5000
 
