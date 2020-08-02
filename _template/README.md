@@ -1,6 +1,6 @@
 # Overview
 
-Template server and client interaction baseline to build demos with
+Base server and client applications to copy and build demos with
 
 # Running
 
