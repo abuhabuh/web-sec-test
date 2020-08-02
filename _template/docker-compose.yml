@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+
+  client-server:
+    image: template-client-server
+    volumes:
+      # mount the app code into running container to allow live editing
+      - type: bind
+        source: ./client-server/client-server
+        target: /var/www/server/client-server
+    build:
+      context: client-server
+      dockerfile: Dockerfile
+    ports:
+      - 5001:5000
+
+  resource-server:
+    image: template-resource-server
+    volumes:
+      # mount the app code into running container to allow live editing
+      - type: bind
+        source: ./resource-server/resource-server
+        target: /var/www/server/resource-server
+    build:
+      context: resource-server
+      dockerfile: Dockerfile
+    ports:
+      - 5002:5000
+
