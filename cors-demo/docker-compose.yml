@@ -4,6 +4,12 @@ services:
 
   client-server:
     image: cors-client-server
+    volumes:
+      # mount the client-server app code on the running container overwriting
+      # what is currently there so we can hot reload the app
+      - type: bind
+        source: ./client-server/client-server
+        target: /var/www/server/client-server
     build:
       context: client-server
       dockerfile: Dockerfile
