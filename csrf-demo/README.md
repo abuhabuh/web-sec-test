@@ -19,3 +19,7 @@ Premise is that resource server holds bank acnt info.
 * Chuck tricks Alice into clicking a link that uses her login cookie to auth
   and transfer $ to his account.
 
+TODO:
+* Add cookie authentication to resource server
+* Add evil server redirect html and js
+

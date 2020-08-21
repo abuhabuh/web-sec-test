@@ -22,6 +22,10 @@ def add_endpoints(flask_app, jinja_env):
         to_id = flask.request.args.get('to')
         amt = int(flask.request.args.get('amt'))
 
+        cookie_username = flask.request.cookies.get('username')
+        if cookie_username != from_id:
+            return json.dumps('unauthorized')
+
         global THE_BANK
         if from_id in THE_BANK and to_id in THE_BANK and \
                 THE_BANK[from_id] >= amt:

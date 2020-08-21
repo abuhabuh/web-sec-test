@@ -1,7 +1,8 @@
 import flask
 
-from apis import base_api
 from apis import accounts_api
+from apis import base_api
+from apis import login_api
 
 
 def bootstrap_app(jinja_env):
@@ -9,6 +10,7 @@ def bootstrap_app(jinja_env):
     
     base_api.add_endpoints(flask_app, jinja_env)
     accounts_api.add_endpoints(flask_app, jinja_env)
+    login_api.add_endpoints(flask_app, jinja_env)
 
     return flask_app
 
