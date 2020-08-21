@@ -19,7 +19,18 @@ Premise is that resource server holds bank acnt info.
 * Chuck tricks Alice into clicking a link that uses her login cookie to auth
   and transfer $ to his account.
 
-TODO:
-* Add cookie authentication to resource server
-* Add evil server redirect html and js
+Execution
+1. Login as Alice to the bank server (localhost:5002/login). Just type "alice" 
+and submit.
+1. Observe Alice has X money.
+1. Login as Chuck and observe Chuck has less money.
+1. Load the attack page with dev console open and observe POST request sent (
+but failed due to SOP)
+1. Notice that Chuck's balance has not changed because the attack request (
+transfer $ from Alice to Chuck) was not authorized since logged in user is 
+Chuck
+1. Login again as Alice
+1. Load attack page and observe POST request sent
+1. Observe Alice has less money
+1. Login as Chuck and observe Chuck has more money. Winning.
 

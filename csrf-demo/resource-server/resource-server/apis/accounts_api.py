@@ -1,7 +1,10 @@
 import json
+import logging
 
 import flask
 
+
+LOG = logging.getLogger(__name__)
 
 THE_BANK = {
     'alice': 5000,
@@ -13,8 +16,14 @@ def add_endpoints(flask_app, jinja_env):
 
     @flask_app.route('/accounts', methods=['GET'])
     def get_accounts():
+        cookie_username = flask.request.cookies.get('username', None)
+        if cookie_username is None:
+            return json.dumps('unauthorized')
+
         global THE_BANK
-        return json.dumps(THE_BANK, indent=2)
+        if cookie_username in THE_BANK:
+            return f'hello {cookie_username}, you have ${THE_BANK[cookie_username]}'
+        return f'you do not have a balance'
 
     @flask_app.route('/transfer', methods=['POST'])
     def post_transfer():
@@ -22,8 +31,12 @@ def add_endpoints(flask_app, jinja_env):
         to_id = flask.request.args.get('to')
         amt = int(flask.request.args.get('amt'))
 
-        cookie_username = flask.request.cookies.get('username')
+        cookie_username = flask.request.cookies.get('username', None)
         if cookie_username != from_id:
+            LOG.info(
+                f'unauthorized transfer: {cookie_username} trying to access'
+                f' from_id'
+            )
             return json.dumps('unauthorized')
 
         global THE_BANK
@@ -31,5 +44,7 @@ def add_endpoints(flask_app, jinja_env):
                 THE_BANK[from_id] >= amt:
             THE_BANK[from_id] = THE_BANK[from_id] - amt
             THE_BANK[to_id] = THE_BANK[to_id] + amt
+
+        LOG.info(f'THE BANK: {json.dumps(THE_BANK, indent=2)}')
 
         return json.dumps(THE_BANK, indent=2)

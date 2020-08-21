@@ -15,8 +15,8 @@ def add_endpoints(flask_app, jinja_env):
     def post_login():
         name = flask.request.form.get('name')
         if name in THE_BANK:
-            resp = flask.make_response('logged in')
-            resp.set_cookie('username', 'alice')
+            resp = flask.make_response(flask.redirect('/accounts', code=302))
+            resp.set_cookie('username', name)
         else:
             resp = flask.make_response('no match found')
         return resp
