@@ -2,21 +2,21 @@ version: "3.8"
 
 services:
 
-  client-server:
-    image: cors-client-server
+  evil-client-server:
+    image: csrf-client-server
     volumes:
       # mount the app code into running container to allow live editing
       - type: bind
-        source: ./client-server/client-server
+        source: ./evil-client-server/client-server
         target: /var/www/server/client-server
     build:
-      context: client-server
+      context: evil-client-server
       dockerfile: Dockerfile
     ports:
       - 5001:5000
 
   resource-server:
-    image: cors-resource-server
+    image: csrf-resource-server
     volumes:
       # mount the app code into running container to allow live editing
       - type: bind

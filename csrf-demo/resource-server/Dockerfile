@@ -1,5 +1,7 @@
 FROM frolvlad/alpine-python3
 
+### create app directory, copy app, install
+### note: docker-compose will overwrite this with a bind mount when starting
 RUN mkdir -p /var/www/server/resource-server
 COPY resource-server /var/www/server/resource-server
 RUN pip install -r /var/www/server/resource-server/requirements.txt
