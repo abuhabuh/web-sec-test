@@ -39,9 +39,11 @@ def add_endpoints(flask_app, jinja_env):
             )
             return json.dumps('unauthorized')
 
+        LOG.info(f'cookie username auth\'d: {cookie_username}')
         global THE_BANK
         if from_id in THE_BANK and to_id in THE_BANK and \
                 THE_BANK[from_id] >= amt:
+            LOG.info(f'Transfering {amt} from {from_id} to {to_id}')
             THE_BANK[from_id] = THE_BANK[from_id] - amt
             THE_BANK[to_id] = THE_BANK[to_id] + amt
 
